@@ -5,6 +5,7 @@ import { WidgetUtils } from "../../shared/widget.util";
 
 
 import { HcService } from "hc-lib/dist/hc.service";
+import {HttpResponse} from "@angular/common/http";
 
 @IonicPage()
 @Component({
@@ -15,7 +16,7 @@ export class LoginPage {
   loader: Loading;
   companyLogo: string;
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, private dialog: WidgetUtils, public hcService: HcService) {
+  constructor(private navCtrl: NavController, private dialog: WidgetUtils, public hcService: HcService) {
     this.companyLogo =  '../../assets/imgs/hc.png';
   }
 
@@ -26,10 +27,10 @@ export class LoginPage {
     else {
       this.dialog.showLoading();
       this.hcService.doLogin(localStorage.getItem('baseUrl'), username, password)
-        .subscribe((data: LoginModel) => {
-            localStorage.setItem('token', data.token);
+        .subscribe((data: HttpResponse<LoginModel>) => {
+            localStorage.setItem('token', data.body.token);
             this.dialog.hideLoading();
-            this.navCtrl.setRoot('HomePage', {data: data});
+            this.navCtrl.setRoot('HomePage', {data: data.body});
           },
           (err) => {
             if (this.loader)
@@ -38,19 +39,6 @@ export class LoginPage {
             console.log(err);
           }
         );
-      // this.auth.doLogin(username, password).subscribe(
-      //   (data: LoginModel) => {
-      //     localStorage.setItem('token', data.token);
-      //     this.hideLoading();
-      //     this.navCtrl.setRoot('HomePage', {data: data});
-      //   },
-      //   (err) => {
-      //     if (this.loader)
-      //       this.hideLoading();
-      //     this.showToast(err.statusText);
-      //     console.log(err);
-      //   }
-      // );
     }
   }
 
