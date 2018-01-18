@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading } from 'ionic-angular';
-import { LoginModel } from "../../models/login";
+import { IonicPage, NavController, Loading } from 'ionic-angular';
+import { LoginModel } from "../../models/login.model";
 import { WidgetUtils } from "../../shared/widget.util";
 
-
-import { HcService } from "hc-lib/dist/hc.service";
 import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
+import {HcService} from "hc-lib/hc.service";
 
 @IonicPage()
 @Component({
@@ -13,7 +12,6 @@ import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  loader: Loading;
   companyLogo: string;
 
   constructor(private navCtrl: NavController, private dialog: WidgetUtils, public hcService: HcService) {

@@ -10,7 +10,7 @@ import {LoginPage} from "../pages/login/login";
 import {LoginPageModule} from "../pages/login/login.module";
 import {HomePageModule} from "../pages/home/home.module";
 import {WidgetUtils} from "../shared/widget.util";
-import {HcModule} from "hc-lib/dist/hc.module";
+import {HcModule} from "hc-lib/hc.module";
 @NgModule({
   declarations: [
     MyApp,

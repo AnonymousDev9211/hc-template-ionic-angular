@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {LoginModel} from "../../models/login";
-import { HcService } from "hc-lib/dist/hc.service";
+import {LoginModel} from "../../models/login.model";
+import {HcService} from "hc-lib/hc.service";
+
 @IonicPage({name: 'HomePage'})
 @Component({
   selector: 'page-home',
