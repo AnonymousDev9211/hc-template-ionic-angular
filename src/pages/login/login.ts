@@ -5,7 +5,7 @@ import { WidgetUtils } from "../../shared/widget.util";
 
 
 import { HcService } from "hc-lib/dist/hc.service";
-import {HttpResponse} from "@angular/common/http";
+import {HttpErrorResponse, HttpResponse} from "@angular/common/http";
 
 @IonicPage()
 @Component({
@@ -28,16 +28,21 @@ export class LoginPage {
       this.dialog.showLoading();
       this.hcService.doLogin(localStorage.getItem('baseUrl'), username, password)
         .subscribe((data: HttpResponse<LoginModel>) => {
-            localStorage.setItem('token', data.body.token);
-            this.dialog.hideLoading();
-            this.navCtrl.setRoot('HomePage', {data: data.body});
-          },
-          (err) => {
-            if (this.loader)
+            if (data.status != 200) {
               this.dialog.hideLoading();
-            this.dialog.showToast(err.statusText);
-            console.log(err);
-          }
+              this.dialog.showToast(data);
+            }
+            else{
+              localStorage.setItem('token', data.body.token);
+              this.dialog.hideLoading();
+              this.navCtrl.setRoot('HomePage', {data: data.body});
+            }
+            },
+            (err: HttpErrorResponse) => {
+                this.dialog.hideLoading();
+              this.dialog.showToast(err.error._ERROR_MESSAGE_);
+              console.log(err);
+            }
         );
     }
   }
