@@ -8,9 +8,9 @@ export class WidgetUtils {
 
   }
 
-  showLoading() {
+  showLoading(message) {
     this.loader = this.loadingCtrl.create({
-      content: "Logging In..."
+      content: message
     });
     this.loader.present();
   }
@@ -42,7 +42,6 @@ export class WidgetUtils {
         {
           text: 'Cancel',
           handler: data => {
-            console.log('Cancel clicked');
           }
         },
         {
@@ -50,7 +49,6 @@ export class WidgetUtils {
           handler: data => {
             localStorage.removeItem('baseUrl');
             localStorage.setItem('baseUrl', data.url);
-            console.log('Saved clicked');
           }
         }
       ]

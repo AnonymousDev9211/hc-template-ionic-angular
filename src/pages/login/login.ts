@@ -25,7 +25,7 @@ export class LoginPage {
       this.dialog.showToast('Please Enter Tenant URL before logging in');
     }
     else {
-      this.dialog.showLoading();
+      this.dialog.showLoading('Logging In...');
       this.hcService.doLogin(localStorage.getItem('baseUrl'), username, password)
         .subscribe((data: HttpResponse<LoginModel>) => {
             if (data.status != 200) {
